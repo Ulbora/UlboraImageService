@@ -116,6 +116,9 @@ exports.getImageByClient = function (clientId, page, callback) {
     var offset = 0;
     if(page !== null && page !== undefined && Number.isInteger(page)){
         offset = --page;
+        if(offset < 0){
+            offset = 0;
+        }
     }
     var queryId = [
         clientId
