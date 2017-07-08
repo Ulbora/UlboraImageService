@@ -36,7 +36,8 @@ exports.addImage = function (json, callback) {
         message: ""
     };
     var isOk = manager.securityCheck(json);
-    if (isOk) {
+    if (isOk && json.name) {        
+        json.name = json.name.replace(/ /g, "");        
         db.addImage(json, function (result) {
             if (result && result.success) {
                 returnVal.success = result.success;
@@ -65,6 +66,7 @@ exports.updateImage = function (json, callback) {
         if (json.id !== undefined && json.id !== null &&
                 json.clientId !== undefined && json.clientId !== null &&
                 json.name) {
+            json.name = json.name.replace(/ /g, "");   
             db.updateImage(json, function (result) {
                 if (result && result.success) {
                     returnVal.success = result.success;
@@ -107,7 +109,7 @@ exports.getImage = function (id, clientId, callback) {
     var clientIdOk = manager.securityCheck(clientId);
     if (idOk && clientIdOk) {
         db.getImage(id, clientId, function (result) {
-            if (result  && result.fileData) {
+            if (result && result.fileData) {
                 callback(result.fileData);
             } else {
                 callback(null);
@@ -120,7 +122,7 @@ exports.getImage = function (id, clientId, callback) {
 
 
 
-exports.getPageCount = function (clientId, callback) {    
+exports.getPageCount = function (clientId, callback) {
     var clientIdOk = manager.securityCheck(clientId);
     if (clientIdOk) {
         db.getPageCount(clientId, function (result) {
