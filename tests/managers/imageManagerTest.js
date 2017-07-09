@@ -95,14 +95,32 @@ describe('Image Manager', function () {
     });
 
 
+
+    describe('#getImage()', function () {
+        it('should get Image in manager', function (done) {
+            setTimeout(function () {
+                imageManager.getImage(imgId, clientId, function (fileDate, fileExtension) {
+                    //console.log("image res: " + JSON.stringify(result));
+                    var fileName = __dirname + "/testFiles/downloaded/testfile2.jpg";
+                        fs.writeFileSync(fileName, fileDate);
+                    if (fileDate && fileExtension && fileExtension === "jpg") {                        
+                        assert(true);
+                    } else {
+                        assert(false);
+                    }
+                    done();
+                });
+            }, 1000);
+        });
+    });
+    
+
     describe('#getImageDetails()', function () {
         it('should get Image Details in manager', function (done) {
             setTimeout(function () {
                 imageManager.getImageDetails(imgId, clientId, function (result) {
-                    //console.log("image res: " + JSON.stringify(result));
-                    if (result && result.name === "aReallyLongName") {
-                        var fileName = __dirname + "/testFiles/downloaded/testfile.jpg";
-                        fs.writeFileSync(fileName, result.fileData);
+                    console.log("image details res: " + JSON.stringify(result));
+                    if (result && result.name === "aReallyLongName") {                        
                         assert(true);
                     } else {
                         assert(false);
@@ -113,24 +131,6 @@ describe('Image Manager', function () {
         });
     });
 
-    
-    describe('#getImage()', function () {
-        it('should get Image in manager', function (done) {
-            setTimeout(function () {
-                imageManager.getImage(imgId, clientId, function (result) {
-                    //console.log("image res: " + JSON.stringify(result));
-                    var fileName = __dirname + "/testFiles/downloaded/testfile2.jpg";
-                        fs.writeFileSync(fileName, result);
-                    if (result) {                        
-                        assert(true);
-                    } else {
-                        assert(false);
-                    }
-                    done();
-                });
-            }, 1000);
-        });
-    });
     
     
     describe('#getPageCount()', function () {

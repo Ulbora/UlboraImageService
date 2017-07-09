@@ -20,11 +20,11 @@
  */
 
 var HOST = "localhost";
-var PORT = 3006;
+var PORT = 3007;
 
 //database
 var DATABASE_HOST = "localhost";
-var DATABASE_NAME = "ulbora_order_service";
+var DATABASE_NAME = "ulbora_image_service";
 var DATABASE_USER_NAME = "admin";
 var DATABASE_USER_PASSWORD = "admin";
 var DATABASE_POOL_SIZE = 5;

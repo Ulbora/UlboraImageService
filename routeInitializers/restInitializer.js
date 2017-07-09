@@ -21,35 +21,19 @@
 
 
 
-var orderService = require("../services/orderService");
-var orderItemsService = require("../services/orderItemsService");
-var packageService = require("../services/packageService");
-
+var imageService = require("../services/imageService");
 
 exports.init = function(app, db){
     //init
-    orderService.init(db);
-    orderItemsService.init(db);
-    packageService.init(db);    
+    imageService.init(db);    
     
-    //order service
-    app.post('/rs/order/add', orderService.add);
-    app.put('/rs/order/update', orderService.update);
-    app.get('/rs/order/get/:id/:clientId', orderService.get);
-    app.get('/rs/order/list/:clientId', orderService.listByClient);    
-    app.get('/rs/order/customer/list/:customerId/:clientId', orderService.listByCustomer);    
-    app.delete('/rs/order/delete/:id/:clientId', orderService.delete);
-    
-    //order items services
-    app.post('/rs/order/item/add', orderItemsService.add);      
-    app.put('/rs/order/item/update', orderItemsService.update);    
-    app.delete('/rs/order/item/delete/:id/:clientId', orderItemsService.delete);
-    
-    //package service
-    app.post('/rs/order/package/add', packageService.add);      
-    app.put('/rs/order/package/update', packageService.update);
-    app.post('/rs/order/package/get', packageService.get);      
-    app.delete('/rs/order/package/delete/:id/:clientId', packageService.delete);
-    
+    //image service
+    app.post('/rs/image/add', imageService.add);
+    app.put('/rs/image/update', imageService.update);
+    app.get('/image/get/:id/:clientId', imageService.get);
+    app.get('/rs/image/details/:id/:clientId', imageService.getDetails);
+    app.get('/rs/image/page/count/:clientId', imageService.getPageCount);    
+    app.get('/rs/image/list/:clientId/:page', imageService.getImageByClient); 
+    app.delete('/rs/image/delete/:id/:clientId', imageService.delete);
     
 };

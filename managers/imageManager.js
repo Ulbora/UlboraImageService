@@ -86,12 +86,28 @@ exports.updateImage = function (json, callback) {
 };
 
 
+exports.getImage = function (id, clientId, callback) {
+    var idOk = manager.securityCheck(id);
+    var clientIdOk = manager.securityCheck(clientId);
+    if (idOk && clientIdOk) {
+        db.getImage(id, clientId, function (result) {
+            if (result && result.fileData) {
+                callback(result.fileData, result.fileExtension);
+            } else {
+                callback(null, null);
+            }
+        });
+    } else {
+        callback(null, null);
+    }
+};
+
 
 exports.getImageDetails = function (id, clientId, callback) {
     var idOk = manager.securityCheck(id);
     var clientIdOk = manager.securityCheck(clientId);
     if (idOk && clientIdOk) {
-        db.getImage(id, clientId, function (result) {
+        db.getImageDetails(id, clientId, function (result) {
             if (result && result.id > 0) {
                 callback(result);
             } else {
@@ -102,24 +118,6 @@ exports.getImageDetails = function (id, clientId, callback) {
         callback({});
     }
 };
-
-
-exports.getImage = function (id, clientId, callback) {
-    var idOk = manager.securityCheck(id);
-    var clientIdOk = manager.securityCheck(clientId);
-    if (idOk && clientIdOk) {
-        db.getImage(id, clientId, function (result) {
-            if (result && result.fileData) {
-                callback(result.fileData);
-            } else {
-                callback(null);
-            }
-        });
-    } else {
-        callback(null);
-    }
-};
-
 
 
 exports.getPageCount = function (clientId, callback) {

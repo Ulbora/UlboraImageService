@@ -78,7 +78,25 @@ describe('mysql DB details', function () {
                     //console.log("product detail: " + JSON.stringify(result));
                     var fileName = __dirname + "/testFiles/downloaded/testfile.jpg";
                     fs.writeFileSync(fileName, result.fileData);
-                    if (result.id && result.name === "aReallyBigImage") {
+                    if (result.fileExtension === "jpg") {
+                        assert(true);
+                    } else {
+                        assert(false);
+                    }
+                    done();
+                });
+            }, 1000);
+        });
+    });
+
+
+    
+    describe('#getImageDetails()', function () {
+        it('should get image details in mysql db', function (done) {
+            setTimeout(function () {
+                db.getImageDetails(imgId, clientId, function (result) {
+                    //console.log("product detail: " + JSON.stringify(result));                    
+                    if (result && result.name === "aReallyBigImage" && result.fileExtension === "jpg") {
                         assert(true);
                     } else {
                         assert(false);

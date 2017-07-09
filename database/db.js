@@ -53,6 +53,9 @@ exports.getImage = function (id, clientId, callback) {
     db.getImage(id, clientId, callback);
 };
 
+exports.getImageDetails = function (id, clientId, callback) {
+    db.getImageDetails(id, clientId, callback);
+};
 
 exports.getPageCount = function (clientId, callback) {
     db.getPageCount(clientId, callback);

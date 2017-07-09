@@ -73,16 +73,31 @@ exports.updateImage = function (json, callback) {
     crud.update(null, query.IMAGE_UPDATE_QUERY, args, callback);
 };
 
+
 exports.getImage = function (id, clientId, callback) {
     var queryId = [id, clientId];
     crud.get(query.IMAGE_GET_BY_QUERY, queryId, function (result) {
+        if (result.success && result.data.length > 0) {
+            var rtn = {                
+                fileExtension: result.data[0].file_extension,
+                fileData: result.data[0].file_data
+            };
+            callback(rtn);
+        } else {
+            callback(null);
+        }
+    });
+};
+
+exports.getImageDetails = function (id, clientId, callback) {
+    var queryId = [id, clientId];
+    crud.get(query.IMAGE_DETAILS_GET_BY_QUERY, queryId, function (result) {
         if (result.success && result.data.length > 0) {
             var rtn = {
                 id: result.data[0].id,
                 name: result.data[0].name,
                 size: result.data[0].size,
-                fileExtension: result.data[0].file_extension,
-                fileData: result.data[0].file_data,
+                fileExtension: result.data[0].file_extension,                
                 clientId: result.data[0].client_id
             };
             callback(rtn);
@@ -124,7 +139,8 @@ exports.getImageByClient = function (clientId, page, callback) {
         clientId
     ];
     
-    var listQuery = "SELECT * FROM image " +                    
+    var listQuery = "SELECT id, name, size, file_extension, client_id  " + 
+                    "FROM image " +                    
                     "where client_id = ? " +
                     "order by name " + 
                     "LIMIT " + offset + ", " + pageSize;// + " ";
@@ -138,8 +154,7 @@ exports.getImageByClient = function (clientId, page, callback) {
                     id: result.data[cnt].id,
                     name: result.data[cnt].name,
                     size: result.data[cnt].size,
-                    fileExtension: result.data[cnt].file_extension,
-                    fileData: result.data[cnt].file_data,
+                    fileExtension: result.data[cnt].file_extension,                    
                     clientId: result.data[cnt].client_id
                 };
                 rtnList.push(rtn);

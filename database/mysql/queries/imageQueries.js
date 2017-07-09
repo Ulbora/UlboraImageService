@@ -26,7 +26,11 @@ exports.IMAGE_UPDATE_QUERY = "UPDATE image SET name = ? " +
                              "WHERE id = ? and client_id = ? ";
                         
                               
-exports.IMAGE_GET_BY_QUERY = "SELECT * FROM image WHERE id = ? and client_id = ? ";
+exports.IMAGE_GET_BY_QUERY = "SELECT file_extension, file_data " + 
+                             "FROM image WHERE id = ? and client_id = ? ";
+
+exports.IMAGE_DETAILS_GET_BY_QUERY = "SELECT id, name, size, file_extension, client_id " +
+                                     "FROM image WHERE id = ? and client_id = ? ";
 
 exports.IMAGE_DELETE_QUERY = "DELETE FROM image WHERE id = ? and client_id = ? ";
 
