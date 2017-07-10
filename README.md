@@ -1,4 +1,4 @@
-Ulbora Order Service 
+Ulbora Image Service 
 ==============
 
 Image Micro Service
@@ -29,7 +29,7 @@ jsonBode.fileData = new Buffer(req.file.buffer).toString('base64');
   
 ```
 
-See code here: https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
+See implementation code here: https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
 
 ```
 Example Response   
@@ -43,20 +43,17 @@ Example Response
 
 ```
 
-## Update Order
+## Update Image
 
 ```
 PUT:
-URL: http://localhost:3006/rs/order/update
+URL: http://localhost:3007/rs/image/update
 
 Example Request
 {
    "clientId":403,
-   "id": 1,
-   "customerId":45,
-   "billingAddressId": 2,
-   "comment": "",
-   "payment": ""
+   "id":160,
+   "name": "a New Name"
 }
   
 ```
@@ -71,11 +68,30 @@ Example Response
 
 ```
 
-## Get Order
+## Get Image
 
 ```
 GET:
-URL: http://localhost:3006/rs/order/get/1/403
+URL: http://localhost:3007/image/get/275/403
+
+(note: this service does not require an Oauth2 Token)
+  
+```
+
+```
+Example Response   
+
+The image displayed
+
+```
+
+
+
+## Get Image Details
+
+```
+GET:
+URL: http://localhost:3007/rs/image/details/160/403
   
 ```
 
@@ -83,82 +99,43 @@ URL: http://localhost:3006/rs/order/get/1/403
 Example Response   
 
 {
-    "id": 1,
-    "customerId": 45,
-    "billingAddressId": 2,
-    "orderDate": "2017-07-03T04:00:00.000Z",
-    "comment": "",
-    "payment": "",
+    "id": 160,
+    "name": "aNewNamefortheImage",
+    "size": 15827,
+    "fileExtension": "jpg",
     "clientId": 403,
-    "orderItems": [
-        {
-            "id": 1,
-            "product": 1,
-            "sku": "0010021455",
-            "orderedQty": 1,
-            "cancelQty": 0,
-            "returnedQty": 0,
-            "backOrderedQty": 0,
-            "retailPrice": 19.95,
-            "status": "ordered",
-            "orderType": "online",
-            "comment": "",
-            "orderId": 1,
-            "clientId": 403
-        },
-        {
-            "id": 2,
-            "product": 2,
-            "sku": "0010021456",
-            "orderedQty": 1,
-            "cancelQty": 0,
-            "returnedQty": 0,
-            "backOrderedQty": 0,
-            "retailPrice": 19.95,
-            "status": "ordered",
-            "orderType": "online",
-            "comment": "",
-            "orderId": 1,
-            "clientId": 403
-        }
-    ]
+    "imageUrl": "http://localhost:3007/image/get/160/403"
 }
 
 ```
 
 
-
-## Get Order by client
+## Get Image Page Count for a client id
 
 ```
 GET:
-URL: http://localhost:3006/rs/order/list/403
+URL: http://localhost:3007/rs/image/page/count/403
   
 ```
 
 ```
 Example Response   
 
-[
-    {
-        "id": 1,
-        "customerId": 45,
-        "billingAddressId": 2,
-        "orderDate": "2017-07-03T04:00:00.000Z",
-        "comment": "",
-        "payment": "",
-        "clientId": 403
-    }
-]
+{
+    "pageCount": 1
+}
 
 ```
 
 
-## Get Order by customer
+
+## Get Image List by client id
 
 ```
 GET:
-URL: http://localhost:3006/rs/order/customer/list/45/403
+URL: http://localhost:3007/rs/image/list/403/1
+
+(Note: http://localhost:3007/rs/image/list/clientId/pageNumber)
   
 ```
 
@@ -167,115 +144,23 @@ Example Response
 
 [
     {
-        "id": 1,
-        "customerId": 45,
-        "billingAddressId": 2,
-        "orderDate": "2017-07-03T04:00:00.000Z",
-        "comment": "",
-        "payment": "",
-        "clientId": 403
+        "id": 160,
+        "name": "aNewNamefortheImage",
+        "size": 15827,
+        "fileExtension": "jpg",
+        "clientId": 403,
+        "imageUrl": "http://localhost:3007/image/get/160/403"
     }
 ]
 
 ```
 
 
-
-## Delete Order
-
-```
-DELETE:
-URL: http://localhost:3006/rs/order/delete/1/403
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "message": ""
-}
-
-```
-
-
-## Add Order Item
-
-```
-POST:
-URL: http://localhost:3006/rs/order/item/add
-
-Example Request
-{
-   "product":6,
-   "sku":"0010021444",
-   "orderedQty":1,
-   "cancelQty":0,
-   "returnedQty":0,
-   "backOrderedQty":0,
-   "retailPrice":19.95,
-   "status":"ordered",
-   "orderType":"online",
-   "comment":"",
-   "clientId":403,
-   "orderId":2
-}
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "id": 176,
-  "clientId": "403",
-  "message": ""
-}
-
-```
-
-
-## Update Order Item
-
-```
-PUT:
-URL: http://localhost:3006/rs/order/item/update
-
-Example Request
-{
-   "orderedQty":10,
-   "cancelQty":9,
-   "returnedQty":0,
-   "backOrderedQty":0,
-   "retailPrice":19.95,
-   "status":"ordered",
-   "orderType":"online",
-   "comment":"",
-   "clientId":403,
-   "id":6
-}
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "message": ""
-}
-
-```
-
-
-
-## Delete Order Item
+## Delete Image
 
 ```
 DELETE:
-URL: http://localhost:3006/rs/order/item/delete/6/403
+URL: http://localhost:3007/rs/image/delete/160/403
   
 ```
 
@@ -288,197 +173,3 @@ Example Response
 }
 
 ```
-
-
-
-
-## Add Package
-
-```
-POST:
-URL: http://localhost:3006/rs/order/package/add
-
-Example Request
-{
-   "tracking":"",
-   "shippingAddressId":10,
-   "shippingCost":9.95,
-   "comment":"",
-   "orderId":2,
-   "clientId":403,
-   "packageItems":[
-      {
-         "orderItemId":3
-      },
-      {
-         "orderItemId":4
-      }
-   ]
-}
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "id": 86,
-  "message": ""
-}
-
-```
-
-
-## Update Package
-
-```
-PUT:
-URL: http://localhost:3006/rs/order/package/update
-
-Example Request
-{
-   "shippedDate": "2017-07-03",
-   "tracking":"",
-   "shippingAddressId":10,
-   "shippingCost":7.95,
-   "comment":"",
-   "id":2,
-   "clientId":403
-}
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "message": ""
-}
-
-```
-
-
-
-
-## Get Package
-
-```
-POST:
-URL: http://localhost:3006/rs/order/package/get
-
-Example Request:
-{
-   "clientId":403,
-   "orderId":2
-}
-  
-```
-
-```
-Example Response   
-
-[
-    {
-        "shippedDate": "2017-07-03T04:00:00.000Z",
-        "tracking": "",
-        "shippingAddressId": 10,
-        "packageNumber": 1,
-        "shippingCost": 7.95,
-        "packageComments": "",
-        "orderItemId": 3,
-        "product": 1,
-        "sku": "0010021455",
-        "orderedQty": 1,
-        "cancelQty": 0,
-        "returnedQty": 0,
-        "backOrderedQty": 0,
-        "retailPrice": 19.95,
-        "orderItemStatus": "ordered",
-        "orderType": "online",
-        "itemComments": "",
-        "orderId": 2,
-        "clientId": 403,
-        "customerId": 45,
-        "billingAddressId": null,
-        "orderDate": "2017-07-03T04:00:00.000Z",
-        "orderComments": null,
-        "payment": null
-    },
-    {
-        "shippedDate": "2017-07-03T04:00:00.000Z",
-        "tracking": "",
-        "shippingAddressId": 10,
-        "packageNumber": 1,
-        "shippingCost": 7.95,
-        "packageComments": "",
-        "orderItemId": 4,
-        "product": 2,
-        "sku": "0010021456",
-        "orderedQty": 1,
-        "cancelQty": 0,
-        "returnedQty": 0,
-        "backOrderedQty": 0,
-        "retailPrice": 19.95,
-        "orderItemStatus": "ordered",
-        "orderType": "online",
-        "itemComments": "",
-        "orderId": 2,
-        "clientId": 403,
-        "customerId": 45,
-        "billingAddressId": null,
-        "orderDate": "2017-07-03T04:00:00.000Z",
-        "orderComments": null,
-        "payment": null
-    },
-    {
-        "shippedDate": "2017-07-03T04:00:00.000Z",
-        "tracking": "",
-        "shippingAddressId": 10,
-        "packageNumber": 2,
-        "shippingCost": 19.95,
-        "packageComments": "",
-        "orderItemId": 5,
-        "product": 1,
-        "sku": "0010021455",
-        "orderedQty": 1,
-        "cancelQty": 0,
-        "returnedQty": 0,
-        "backOrderedQty": 0,
-        "retailPrice": 19.95,
-        "orderItemStatus": "ordered",
-        "orderType": "online",
-        "itemComments": "",
-        "orderId": 2,
-        "clientId": 403,
-        "customerId": 45,
-        "billingAddressId": null,
-        "orderDate": "2017-07-03T04:00:00.000Z",
-        "orderComments": null,
-        "payment": null
-    }
-]
-
-```
-
-
-
-## Delete Package
-
-```
-DELETE:
-URL: http://localhost:3006/rs/order/package/delete/3/403
-  
-```
-
-```
-Example Response   
-
-{
-  "success": true,
-  "message": ""
-}
-
-```
-
