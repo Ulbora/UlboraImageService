@@ -31,7 +31,7 @@ db.connectDb(conf);
 
 var app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 restInitializer.init(app, db);   
 if (conf.CORS_ENABLED) {
     app.use(cors.CORS);

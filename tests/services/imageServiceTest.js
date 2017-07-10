@@ -38,6 +38,7 @@ describe('Image Service', function () {
                 var fileName = __dirname + "/testFiles/upload/test.jpg";
                 var stats = fs.statSync(fileName);
                 var file = fs.readFileSync(fileName);
+                file = new Buffer(file).toString('base64');
                 var json = {
                     clientId: clientId,
                     name: "testfile",

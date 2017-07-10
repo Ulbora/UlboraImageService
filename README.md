@@ -1,7 +1,7 @@
 Ulbora Order Service 
 ==============
 
-Order Micro Service
+Image Micro Service
 
 ## Headers
 Content-Type: application/json (for POST and PUT)
@@ -9,43 +9,25 @@ Authorization: Bearer atToken
 clientId: clientId (example 33477)
 
 
-## Add Order
+## Add Image
 
 ```
 POST:
-URL: http://localhost:3006/rs/order/add
+URL: http://localhost:3007/rs/image/add
 
 Example Request
-{
-   "clientId":403,
-   "customerId":45,
-   "orderItems":[
-      {
-         "product":1,
-         "sku":"0010021455",
-         "orderedQty":1,
-         "cancelQty":0,
-         "returnedQty":0,
-         "backOrderedQty":0,
-         "retailPrice":19.95,
-         "status":"ordered",
-         "orderType":"online",
-         "comment":""
-      },
-      {
-         "product":2,
-         "sku":"0010021456",
-         "orderedQty":1,
-         "cancelQty":0,
-         "returnedQty":0,
-         "backOrderedQty":0,
-         "retailPrice":19.95,
-         "status":"ordered",
-         "orderType":"online",
-         "comment":""
-      }
-   ]
+{  
+   "clientId":"403",
+   "name":"testfile",
+   "size":15827,
+   "fileExtension":"jpg",
+   "fileData":"base64 string image data See Note"
 }
+Note: Use the following code in Node to send image data in JSON
+
+jsonBode.fileData = new Buffer(req.file.buffer).toString('base64');
+
+[see example here](https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js)
   
 ```
 

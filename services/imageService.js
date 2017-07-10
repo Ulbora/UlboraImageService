@@ -31,6 +31,7 @@ exports.init = function (database) {
     imageManager.init(db);
 };
 
+
 exports.add = function (req, res) {
     if (req.is('application/json')) {
         var me = {
@@ -40,8 +41,10 @@ exports.add = function (req, res) {
         };
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body;
-            var bodyJson = JSON.stringify(reqBody);
-            //console.log("image body: " + bodyJson);
+            reqBody.fileData = new Buffer(reqBody.fileData, 'base64');
+            //var bodyJson = JSON.stringify(reqBody);
+            //console.log("req : " + bodyJson);
+            //console.log("image data: " + reqBody.fileData);
             imageManager.addImage(reqBody, function (result) {
                 res.send(result);
             });
@@ -155,13 +158,13 @@ exports.getImageByClient = function (req, res) {
                 console.log("imageList: " + JSON.stringify(result));
                 if (result && result.length > 0) {
                     var imageUrlLink = "http://" + imageUrl + "/image/get/";
-                    for (var cnt = 0; cnt < result.length; cnt++) {                        
+                    for (var cnt = 0; cnt < result.length; cnt++) {
                         var imgLink = imageUrlLink += (result[cnt].id + "/" + result[cnt].clientId);
                         result[cnt].imageUrl = imgLink;
                     }
-                } 
+                }
                 res.send(result);
-                
+
             });
         } else {
             res.send([]);
