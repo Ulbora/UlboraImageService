@@ -29,9 +29,7 @@ jsonBode.fileData = new Buffer(req.file.buffer).toString('base64');
   
 ```
 
-
-
-[see code here]: https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
+See code here: https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
 
 ```
 Example Response   
