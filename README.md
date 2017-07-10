@@ -27,9 +27,9 @@ Note: Use the following code in Node to send image data in JSON
 
 jsonBode.fileData = new Buffer(req.file.buffer).toString('base64');
 
-see code here:
 
-https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
+
+[see code here]: https://github.com/Ulbora/UlboraImageUploadTestClient/blob/master/controller.js
   
 ```
 
