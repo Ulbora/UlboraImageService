@@ -22,17 +22,10 @@
 var crud = require("./crud/mysqlCrud");
 var query = require("./queries/imageQueries");
 var pageSize = 10;
-//var barCodeProcessor = require("./processors/barCodeProcessor");
-//var detailsProcessor = require("./processors/detailsProcessor");
-//var optionsProcessor = require("./processors/optionsProcessor");
-//var productProcessor = require("./processors/productProcessor");
+
 
 exports.connect = function (host, user, pw, db, cpnum) {
-    crud.connect(host, user, pw, db, cpnum);
-    //barCodeProcessor.init(crud);
-    //detailsProcessor.init(crud);
-    //optionsProcessor.init(crud);
-    //productProcessor.init(crud);
+    crud.connect(host, user, pw, db, cpnum);    
 };
 // for testing only
 exports.testConnection = function (callback) {

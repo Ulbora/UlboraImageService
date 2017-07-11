@@ -49,18 +49,14 @@ module.exports = function (grunt) {
                     //captureFile: 'results.txt', // Optionally capture the reporter output to a file 
                     quiet: false, // Optionally suppress output to standard out (defaults to false) 
                     clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false) 
-                },
-                //src: ['tests/webControllers/tokenControllerTest.js']
+                },                
                 //src: ['tests/database/dbTest.js']
-                //src: ['tests/database/mysql/dbTest.js']
-                //src: ['tests/database/mysql/processors/orderItemProcessorTest.js']
+                //src: ['tests/database/mysql/dbTest.js']                
                 //src: ['tests/database/mysql/crud/mysqlCrudTest.js']
-                //src: ['tests/managers/imageManagerTest.js']
-               // src: ['tests/managers/customerManagerTest.js']
-                //src: ['tests/delegates/credentialsGrantDelegateTest.js']
+                //src: ['tests/managers/imageManagerTest.js']               
                 src: ['tests/services/imageServiceTest.js']
                 //src: ['tests/oauth2/oauth2Test.js']
-                //src: ['tests/proxies/tokenValidationProxyTest.js']
+                
             }
         }
     });
