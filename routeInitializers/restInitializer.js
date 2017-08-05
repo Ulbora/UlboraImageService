@@ -31,9 +31,9 @@ exports.init = function(app, db){
     app.post('/rs/image/add', imageService.add);
     app.put('/rs/image/update', imageService.update);
     app.get('/image/get/:id/:clientId', imageService.get);
-    app.get('/rs/image/details/:id/:clientId', imageService.getDetails);
-    app.get('/rs/image/page/count/:clientId', imageService.getPageCount);    
-    app.get('/rs/image/list/:clientId/:page', imageService.getImageByClient); 
-    app.delete('/rs/image/delete/:id/:clientId', imageService.delete);
+    app.get('/rs/image/details/:id', imageService.getDetails);
+    app.get('/rs/image/page/count', imageService.getPageCount);    
+    app.get('/rs/image/list/:page', imageService.getImageByClient); 
+    app.delete('/rs/image/delete/:id', imageService.delete);
     
 };

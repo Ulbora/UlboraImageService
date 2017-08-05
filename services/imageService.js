@@ -42,6 +42,7 @@ exports.add = function (req, res) {
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body;
             reqBody.fileData = new Buffer(reqBody.fileData, 'base64');
+            reqBody.clientId = req.header("clientId");
             //var bodyJson = JSON.stringify(reqBody);
             //console.log("req : " + bodyJson);
             //console.log("image data: " + reqBody.fileData);
@@ -65,6 +66,7 @@ exports.update = function (req, res) {
         };
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body;
+            reqBody.clientId = req.header("clientId");
             var bodyJson = JSON.stringify(reqBody);
             console.log("body: " + bodyJson);
             imageManager.updateImage(reqBody, function (result) {
@@ -81,7 +83,7 @@ exports.update = function (req, res) {
 
 exports.get = function (req, res) {
     var id = req.params.id;
-    var clientId = req.params.clientId;
+    var clientId = req.header("clientId");
     if (id !== null && id !== undefined && clientId !== null && clientId !== undefined) {
         imageManager.getImage(id, clientId, function (imageData, ext) {
             console.log("image ext: " + ext);
@@ -109,7 +111,7 @@ exports.getDetails = function (req, res) {
     oauth2.authorize(req, res, me, validationUrl, function () {
         var imageUrl = req.get("Host");
         var id = req.params.id;
-        var clientId = req.params.clientId;
+        var clientId = req.header("clientId");
         if (id !== null && id !== undefined && clientId !== null && clientId !== undefined) {
             imageManager.getImageDetails(id, clientId, function (result) {
                 var imageUrlLink = "http://" + imageUrl + "/image/get/";
@@ -132,7 +134,7 @@ exports.getPageCount = function (req, res) {
         scope: "read"
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
-        var clientId = req.params.clientId;
+        var clientId = req.header("clientId");
         if (clientId !== null && clientId !== undefined) {
             imageManager.getPageCount(clientId, function (result) {
                 res.send(result);
@@ -151,7 +153,7 @@ exports.getImageByClient = function (req, res) {
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
         var imageUrl = req.get("Host");
-        var clientId = req.params.clientId;
+        var clientId = req.header("clientId");
         var page = req.params.page;
         if (clientId !== null && clientId !== undefined) {
             imageManager.getImageByClient(clientId, page, function (result) {
@@ -180,7 +182,7 @@ exports.delete = function (req, res) {
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
         var id = req.params.id;
-        var clientId = req.params.clientId;
+        var clientId = req.header("clientId");
         if (id !== null && id !== undefined && clientId !== null && clientId !== undefined) {
             imageManager.deleteImage(id, clientId, function (result) {
                 res.send(result);
