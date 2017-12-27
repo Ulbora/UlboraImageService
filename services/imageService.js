@@ -36,7 +36,7 @@ exports.add = function (req, res) {
     if (req.is('application/json')) {
         var me = {
             role: "admin",
-            uri: "/rs/image/add",
+            uri: "/ulbora/rs/image/add",
             scope: "write"
         };
         oauth2.authorize(req, res, me, validationUrl, function () {
@@ -62,7 +62,7 @@ exports.update = function (req, res) {
     if (req.is('application/json')) {
         var me = {
             role: "admin",
-            uri: "/rs/image/update",
+            uri: "/ulbora/rs/image/update",
             scope: "write"
         };
         oauth2.authorize(req, res, me, validationUrl, function () {
@@ -106,7 +106,7 @@ exports.get = function (req, res) {
 exports.getDetails = function (req, res) {
     var me = {
         role: "user",
-        uri: "/rs/image/details",
+        uri: "/ulbora/rs/image/details",
         scope: "read"
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
@@ -131,7 +131,7 @@ exports.getDetails = function (req, res) {
 exports.getPageCount = function (req, res) {
     var me = {
         role: "user",
-        uri: "/rs/image/page/count",
+        uri: "/ulbora/rs/image/page/count",
         scope: "read"
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
@@ -149,7 +149,7 @@ exports.getPageCount = function (req, res) {
 exports.getImageByClient = function (req, res) {
     var me = {
         role: "user",
-        uri: "/rs/image/list",
+        uri: "/ulbora/rs/image/list",
         scope: "read"
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
@@ -178,7 +178,7 @@ exports.getImageByClient = function (req, res) {
 exports.delete = function (req, res) {
     var me = {
         role: "admin",
-        uri: "/rs/image/delete",
+        uri: "/ulbora/rs/image/delete",
         scope: "write"
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
