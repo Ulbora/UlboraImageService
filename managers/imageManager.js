@@ -62,7 +62,7 @@ exports.updateImage = function (json, callback) {
     };
     var isOk = manager.securityCheck(json);
     if (isOk) {
-        console.log("update req in manager: " + JSON.stringify(json));
+        //console.log("update req in manager: " + JSON.stringify(json));
         if (json.id !== undefined && json.id !== null &&
                 json.clientId !== undefined && json.clientId !== null &&
                 json.name) {

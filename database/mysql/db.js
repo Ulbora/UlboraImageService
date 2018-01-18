@@ -137,7 +137,7 @@ exports.getImageByClient = function (clientId, page, callback) {
                     "where client_id = ? " +
                     "order by name " + 
                     "LIMIT " + offset + ", " + pageSize;// + " ";
-    console.log("query: " + listQuery);
+    //console.log("query: " + listQuery);
     crud.get(listQuery, queryId, function (result) {
         //console.log("images: " + JSON.stringify(result));
         if (result.success && result.data.length > 0) {

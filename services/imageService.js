@@ -42,7 +42,7 @@ exports.add = function (req, res) {
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body; 
             var bodyJson = JSON.stringify(reqBody);
-            console.log("req : " + bodyJson);
+            //console.log("req : " + bodyJson);
             reqBody.fileData = new Buffer(reqBody.fileData, 'base64');
             reqBody.clientId = req.header("clientId");
             
@@ -69,7 +69,7 @@ exports.update = function (req, res) {
             var reqBody = req.body;
             reqBody.clientId = req.header("clientId");
             var bodyJson = JSON.stringify(reqBody);
-            console.log("body: " + bodyJson);
+            //console.log("body: " + bodyJson);
             imageManager.updateImage(reqBody, function (result) {
                 res.send(result);
             });
@@ -87,7 +87,7 @@ exports.get = function (req, res) {
     var clientId = req.params.clientId;//req.header("clientId");
     if (id !== null && id !== undefined && clientId !== null && clientId !== undefined) {
         imageManager.getImage(id, clientId, function (imageData, ext) {
-            console.log("image ext: " + ext);
+            //console.log("image ext: " + ext);
             if (imageData && ext) {
                 res.set('Content-Type', 'image/' + ext);
                 res.send(imageData);
@@ -158,7 +158,7 @@ exports.getImageByClient = function (req, res) {
         var page = req.params.page;
         if (clientId !== null && clientId !== undefined) {
             imageManager.getImageByClient(clientId, page, function (result) {
-                console.log("imageList: " + JSON.stringify(result));
+                //console.log("imageList: " + JSON.stringify(result));
                 if (result && result.length > 0) {                    
                     for (var cnt = 0; cnt < result.length; cnt++) {
                         var imageUrlLink = "http://" + imageUrl + "/image/get/";
