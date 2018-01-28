@@ -41,7 +41,7 @@ exports.add = function (req, res) {
         };
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body; 
-            var bodyJson = JSON.stringify(reqBody);
+            //var bodyJson = JSON.stringify(reqBody);
             //console.log("req : " + bodyJson);
             reqBody.fileData = new Buffer(reqBody.fileData, 'base64');
             reqBody.clientId = req.header("clientId");
@@ -68,7 +68,7 @@ exports.update = function (req, res) {
         oauth2.authorize(req, res, me, validationUrl, function () {
             var reqBody = req.body;
             reqBody.clientId = req.header("clientId");
-            var bodyJson = JSON.stringify(reqBody);
+            //var bodyJson = JSON.stringify(reqBody);
             //console.log("body: " + bodyJson);
             imageManager.updateImage(reqBody, function (result) {
                 res.send(result);
