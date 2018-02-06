@@ -89,7 +89,11 @@ exports.get = function (req, res) {
         imageManager.getImage(id, clientId, function (imageData, ext) {
             //console.log("image ext: " + ext);
             if (imageData && ext) {
-                res.set('Content-Type', 'image/' + ext);
+                if(ext === "svg"){
+                    res.set('Content-Type', 'image/svg+xml');
+                }else{
+                    res.set('Content-Type', 'image/' + ext);
+                }                
                 res.send(imageData);
             } else if (imageData) {
                 res.send(imageData);
