@@ -27,12 +27,14 @@ var cors = require('./cors/cors');
 var restInitializer = require('./routeInitializers/restInitializer');
 var db = require("./database/db");
 db.connectDb(conf);
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache();
 
 
 var app = express();
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
-restInitializer.init(app, db);   
+restInitializer.init(app, db, cache);   
 if (conf.CORS_ENABLED) {
     app.use(cors.CORS);
 }

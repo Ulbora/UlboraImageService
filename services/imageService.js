@@ -26,9 +26,9 @@ var validationUrl = process.env.OAUTH2_VALIDATION_URI || constants.OAUTH2_VALIDA
 
 var db;
 
-exports.init = function (database) {
+exports.init = function (database, cache) {
     db = database;
-    imageManager.init(db);
+    imageManager.init(db, cache);
 };
 
 

@@ -53,8 +53,8 @@ module.exports = function (grunt) {
                 //src: ['tests/database/dbTest.js']
                 //src: ['tests/database/mysql/dbTest.js']                
                 //src: ['tests/database/mysql/crud/mysqlCrudTest.js']
-                //src: ['tests/managers/imageManagerTest.js']               
-                src: ['tests/services/imageServiceTest.js']
+                src: ['tests/managers/imageManagerTest.js']               
+                //src: ['tests/services/imageServiceTest.js']
                 //src: ['tests/oauth2/oauth2Test.js']
                 
             }

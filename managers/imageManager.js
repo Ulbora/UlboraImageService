@@ -22,9 +22,11 @@
 var manager = require("./manager");
 
 var db;
+var cache;
 
-exports.init = function (database) {
+exports.init = function (database, c) {
     db = database;
+    cache = c;
 };
 
 
@@ -36,8 +38,8 @@ exports.addImage = function (json, callback) {
         message: ""
     };
     var isOk = manager.securityCheck(json);
-    if (isOk && json.name) {        
-        json.name = json.name.replace(/ /g, "");        
+    if (isOk && json.name) {
+        json.name = json.name.replace(/ /g, "");
         db.addImage(json, function (result) {
             if (result && result.success) {
                 returnVal.success = result.success;
@@ -66,7 +68,7 @@ exports.updateImage = function (json, callback) {
         if (json.id !== undefined && json.id !== null &&
                 json.clientId !== undefined && json.clientId !== null &&
                 json.name) {
-            json.name = json.name.replace(/ /g, "");   
+            json.name = json.name.replace(/ /g, "");
             db.updateImage(json, function (result) {
                 if (result && result.success) {
                     returnVal.success = result.success;
@@ -90,13 +92,34 @@ exports.getImage = function (id, clientId, callback) {
     var idOk = manager.securityCheck(id);
     var clientIdOk = manager.securityCheck(clientId);
     if (idOk && clientIdOk) {
-        db.getImage(id, clientId, function (result) {
-            if (result && result.fileData) {
-                callback(result.fileData, result.fileExtension);
+        var cacheKey = clientId + ":" + id;
+        cache.get(cacheKey, function (err, value) {
+            if (!err) {
+                if (value === undefined) {
+                    db.getImage(id, clientId, function (result) {
+                        if (result && result.fileData) {
+                            cache.set(cacheKey, result, function (err, success) {
+                                if (!err && success) {
+                                    //console.log("got from DB");
+                                    callback(result.fileData, result.fileExtension);
+                                } else {
+                                    callback(null, null);
+                                }
+                            });
+                        } else {
+                            callback(null, null);
+                        }
+                    });
+                } else {
+                    //console.log("found in cache");
+                    //console.log(value);
+                    callback(value.fileData, value.fileExtension);
+                }
             } else {
                 callback(null, null);
             }
         });
+
     } else {
         callback(null, null);
     }

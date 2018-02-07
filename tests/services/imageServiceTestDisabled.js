@@ -8,13 +8,15 @@ var token = tokenFile.token;
 var imgId;
 var imgId2;
 var clientId = "64544364543";
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache();
 describe('Image Service', function () {
     this.timeout(20000);
     describe('#init()', function () {
         it('should init manager', function (done) {
             db.connect("localhost", "admin", "admin", "ulbora_image_service", 5);
             setTimeout(function () {
-                imageService.init(db);
+                imageService.init(db, cache);
                 done();
             }, 1000);
         });

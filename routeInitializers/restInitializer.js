@@ -23,9 +23,9 @@
 
 var imageService = require("../services/imageService");
 
-exports.init = function(app, db){
+exports.init = function(app, db, cache){
     //init
-    imageService.init(db);    
+    imageService.init(db, cache);    
     
     //image service
     app.post('/rs/image/add', imageService.add);

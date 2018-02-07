@@ -5,6 +5,8 @@ var imgId;
 var imgId2;
 var clientId = "4984556118";
 var fs = require("fs");
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache();
 
 describe('Image Manager', function () {
     this.timeout(20000);
@@ -12,7 +14,7 @@ describe('Image Manager', function () {
         it('should init manager', function (done) {
             db.connect("localhost", "admin", "admin", "ulbora_image_service", 5);
             setTimeout(function () {
-                imageManager.init(db);
+                imageManager.init(db, cache);
                 done();
             }, 1000);
         });
