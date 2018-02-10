@@ -180,8 +180,13 @@ exports.deleteImage = function (id, clientId, callback) {
     if (idOk && clientIdOk) {
         db.deleteImage(id, clientId, function (result) {
             if (result && result.success) {
-                returnVal.success = result.success;
-                callback(returnVal);
+                var cacheKey = clientId + ":" + id;
+                cache.del(cacheKey, function (err, count) { 
+                    //console.log("delete form memory err: " + err);
+                    //console.log("count deleted form memory: " + count);
+                    returnVal.success = result.success;
+                    callback(returnVal);                    
+                });
             } else {
                 returnVal.message = "Error deleting";
                 callback(returnVal);
