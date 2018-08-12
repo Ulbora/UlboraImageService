@@ -158,6 +158,10 @@ exports.getImageByClient = function (req, res) {
     };
     oauth2.authorize(req, res, me, validationUrl, function () {
         var imageUrl = req.get("Host");
+        //console.log("url: " + imageUrl);
+        if(imageUrl.indexOf("localhost") === -1){
+            imageUrl = "images.ulboracms.com";
+        }
         var clientId = req.header("clientId");
         var page = req.params.page;
         if (clientId !== null && clientId !== undefined) {
